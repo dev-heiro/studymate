@@ -18,5 +18,7 @@ public class AvatarRepository {
         return template.selectList("avatar.findAll");
     }
 
-
+    public Avatar findById(int id) {
+        return template.selectOne("avatar.findById", id);
+    }
 }
