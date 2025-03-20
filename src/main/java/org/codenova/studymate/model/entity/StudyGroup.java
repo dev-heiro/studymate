@@ -1,8 +1,7 @@
-package org.codenova.studymate.model;
+package org.codenova.studymate.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 
