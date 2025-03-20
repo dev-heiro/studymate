@@ -24,6 +24,7 @@
 <div>
     <div class="index-main wrap">
         <h2 style="border-bottom: 1px solid #333">내 그룹</h2>
+
     </div>
 </div>
 

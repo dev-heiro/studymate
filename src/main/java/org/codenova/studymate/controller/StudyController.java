@@ -44,7 +44,6 @@ public class StudyController {
 
         studyGroupRepository.addMemberCountById(studyGroup.getId());
 
-
         return "redirect:/";
     }
 }
