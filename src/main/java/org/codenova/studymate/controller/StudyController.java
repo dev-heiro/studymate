@@ -50,7 +50,7 @@ public class StudyController {
 
         studyGroupRepository.addMemberCountById(studyGroup.getId());
 
-        return "redirect:/";
+        return "redirect:/study/"+randomId;
     }
 
     @RequestMapping("/search")
@@ -86,7 +86,7 @@ public class StudyController {
 
     @RequestMapping("/{id}")
     public String viewHandle(@PathVariable("id") String id, Model model) {
-        System.out.println(id);
+        // System.out.println(id);
 
         StudyGroup group = studyGroupRepository.findById(id);
         if(group == null) {
@@ -106,16 +106,24 @@ public class StudyController {
             member.setGroupId(id);
             member.setRole("멤버");
         */
-
-        StudyMember member = StudyMember.builder().
-                userId(user.getId()).groupId(id).role("멤버").build();
-
-        StudyGroup group =studyGroupRepository.findById(id);
-        if(group.getType().equals("공개")) {
-            studyMemberRepository.createApproved(member);
-            studyGroupRepository.addMemberCountById(id);
-        }else {
-            studyMemberRepository.createPending(member);
+        boolean exist = false;
+        List<StudyMember> list = studyMemberRepository.findByUserId(user.getId());
+        for(StudyMember one : list) {
+            if(one.getGroupId().equals(id)) {
+                exist = true;
+                break;
+            }
+        }
+        if(!exist) {
+            StudyMember member = StudyMember.builder().
+                    userId(user.getId()).groupId(id).role("멤버").build();
+            StudyGroup group = studyGroupRepository.findById(id);
+            if (group.getType().equals("공개")) {
+                studyMemberRepository.createApproved(member);
+                studyGroupRepository.addMemberCountById(id);
+            } else {
+                studyMemberRepository.createPending(member);
+            }
         }
 
         return "redirect:/study/"+id;
