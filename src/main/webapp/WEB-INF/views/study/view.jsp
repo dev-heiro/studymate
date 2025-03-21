@@ -37,11 +37,33 @@ background-color: #afafaf; color:white" placeholder="스터디 검색" value="${
                 <div style="font-size : 0.8em">
                     개설일 <span>${group.createdAt}</span>
                 </div>
-                <p>
-                    <a href="${pageContext.request.contextPath}/study/${group.id}/join">
-                        <button style="width: 100%; padding: 5px; font-size:1em;">스터디가입하기</button>
-                    </a>
-                </p>
+                ${status}
+                <c:choose>
+                    <c:when test="${status == 'NOT_JOINED'}">
+                        <p>
+                            <a href="${pageContext.request.contextPath}/study/${group.id}/join">
+                                <button style="width: 100%; padding: 5px; font-size:1em;">스터디가입하기</button>
+                            </a>
+                        </p>
+                    </c:when>
+                    <c:when test="${status == 'PENDING'}">
+                        <p>
+                            <button style="width: 100%; padding: 5px; font-size:1em;" disabled>승인 대기중</button>
+                        </p>
+                    </c:when>
+                    <c:when test="${status == 'MEMBER'}">
+                        <p>
+                            <button style="width: 100%; padding: 5px; font-size:1em;" disabled>스터티 탈퇴하기</button>
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p>
+                            <button style="width: 100%; padding: 5px; font-size:1em;" disabled>스터티 해산하기</button>
+                        </p>
+                    </c:otherwise>
+                </c:choose>
+
+
                 <c:choose>
                     <c:when test="${group.type == '공개'}">
                         <div style="font-size: 0.75em">
