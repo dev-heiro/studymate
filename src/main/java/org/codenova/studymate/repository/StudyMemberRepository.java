@@ -25,7 +25,6 @@ public class StudyMemberRepository {
         return sqlSessionTemplate.update("studyMember.updateJoinedAtById", id);
     }
 
-
     public List<StudyMember>findByUserId(String userId) {
         return sqlSessionTemplate.selectList("studyMember.findByUserId", userId);
     }
@@ -34,5 +33,8 @@ public class StudyMemberRepository {
         return sqlSessionTemplate.selectOne("studyMember.findByUserIdAndGroupId", params);
     }
 
+    public int deleteById(int id) {
+        return sqlSessionTemplate.delete("studyMember.deleteById", id);
+    }
 
 }
