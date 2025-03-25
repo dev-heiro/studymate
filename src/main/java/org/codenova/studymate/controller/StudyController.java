@@ -261,20 +261,16 @@ public class StudyController {
         PostReaction found =
                 postRectionRepository.findByWriterIdAndPostId(Map.of("writerId", user.getId(), "postId", postReaction.getPostId()));
 
-        if(found == null) {
-            postReaction.setWriterId(user.getId());
-            postRectionRepository.create(postReaction);
-        }else {
-//            postRectionRepository.deleteById(found.getId());
-  //          postRectionRepository.create(postReaction);
-
-//          postRectionRepository.updateFeelingById(postReaction);
+        if (found != null) {
+            postRectionRepository.deleteById(found.getId());
         }
 
-        return "redirect:/study/" + postReaction.getGroupId() ;
+        postReaction.setWriterId(user.getId());
+        postRectionRepository.create(postReaction);
+
+
+        return "redirect:/study/" + postReaction.getGroupId();
     }
-
-
 
 
 }
