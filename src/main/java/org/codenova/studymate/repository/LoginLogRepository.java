@@ -14,6 +14,7 @@ public class LoginLogRepository {
 
 
     public int create(String userId) {
+
         return sqlSessionTemplate.insert("loginLog.create", userId);
     }
 
